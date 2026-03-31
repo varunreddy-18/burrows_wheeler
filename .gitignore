@@ -43,3 +43,5 @@ env/
 __pycache__/
 .coverage
 htmlcov/
+.hypothesis/
+.pytest_cache/
