@@ -1,9 +1,9 @@
-import sys
 from burrows_wheeler import BurrowsWheeler
 from move_to_front import MoveToFront
 
 def main():
-    original = sys.argv[1] if len(sys.argv) > 1 else "ABRACADABRA!"
+    # Take input directly from user (no quotes needed)
+    original = input("Enter the string: ")
     
     print("-" * 50)
     print("BURROWS-WHEELER COMPRESSION PIPELINE TEST")
@@ -13,16 +13,16 @@ def main():
     # 1. Burrows-Wheeler Transform
     first, bwt_str = BurrowsWheeler.transform(original)
     
-    # 2. MTF Encode execution yielding lists
+    # 2. MTF Encode
     mtf_encoded = MoveToFront.encode(bwt_str)
     
-    # 3. MTF Decode execution returning equivalent array
+    # 3. MTF Decode
     mtf_decoded = MoveToFront.decode(mtf_encoded)
     
-    # 4. Inverse BWT logic ensuring lossless nature remains intact
+    # 4. Inverse BWT
     reconstructed = BurrowsWheeler.inverse_transform(first, mtf_decoded)
     
-    # Render Exact Expected Terminal Output Style
+    # Output
     print(f"Original String: {original}")
     print(f"BWT First Index: {first}")
     print(f"BWT Transformed: {bwt_str}")
@@ -33,7 +33,7 @@ def main():
     print()
     print("-" * 50)
     
-    # Automated Assert Pipeline Correctness Verification
+    # Validation
     assert original == reconstructed, "Pipeline reconstruction strictly failed losslessly!"
     assert bwt_str == mtf_decoded, "Move-To-Front execution parity check failed!"
     print("Execution Validated: Perfect lossless end-to-end integration verified.")
